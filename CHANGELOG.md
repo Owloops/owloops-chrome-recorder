@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.0.4...v1.0.5) (2022-12-14)
+
+
+### Bug Fixes
+
+* json format ([9cd9e35](https://github.com/Owloops/owloops-chrome-recorder/commit/9cd9e352af083412ac292e7e84733a10287dc7c8))
+
 ## [1.0.4](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.0.3...v1.0.4) (2022-12-14)
 
 
