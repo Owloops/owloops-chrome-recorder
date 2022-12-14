@@ -18,6 +18,9 @@
     "type": "git",
     "url": "git+https://github.com/Owloops/owloops-chrome-recorder.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "owloops",
     "testing",
