@@ -61,7 +61,11 @@ export async function owloopsStringifyChromeRecording(
 
   const owloopsStringified = await stringifyParsedRecording(parsedRecording);
 
+  console.log(owloopsStringified);
+
   const owloopsStringifiedWithoutTrailingCommas = stripJsonTrailingCommas(owloopsStringified || "");
+  
+  console.log(owloopsStringifiedWithoutTrailingCommas);
 
   const owloopsStringifiedWithoutTrailingCommasBeautified = JSON.stringify(JSON.parse(owloopsStringifiedWithoutTrailingCommas), null, 2);
 
