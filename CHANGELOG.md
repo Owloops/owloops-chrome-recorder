@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.0.2...v1.0.3) (2022-12-14)
+
+
+### Bug Fixes
+
+* add step type ([d2a18a3](https://github.com/Owloops/owloops-chrome-recorder/commit/d2a18a381b7457caacb2a0f6f4fda730bd5c0949))
+
 ## [1.0.2](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.0.1...v1.0.2) (2022-12-14)
 
 
