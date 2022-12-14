@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "version": "0.0.1",
+  "name": "Owloops Chrome Recorder",
+  "description": "Owloops extension for DevTools that allows you to export tests directly from the Recorder panel.",
+  "permissions": [],
+  "devtools_page": "DevToolsPlugin.html",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "minimum_chrome_version": "104.0.0.0",
+  "icons": {
+    "16": "icon_16x16.png",
+    "32": "icon_32x32.png",
+    "48": "icon_48x48.png",
+    "128": "icon_128x128.png"
+  }
+}
