@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.0.1...v1.0.2) (2022-12-14)
+
+
+### Bug Fixes
+
+* public package ([8a87f07](https://github.com/Owloops/owloops-chrome-recorder/commit/8a87f07e6eb9f70be295b698992426072c5808b1))
+
 ## [1.0.1](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.0.0...v1.0.1) (2022-12-14)
 
 
