@@ -98,3 +98,5 @@ If a step type is not listed above, then a warning message should be displayed i
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/Owloops/owloops-chrome-recorder/blob/master/LICENSE)
 
 This project is licensed under the terms of the [MIT license](/LICENSE).
+
+The initial implementation was inspired by [Cypress Chrome Recorder](https://github.com/cypress-io/cypress-chrome-recorder)
