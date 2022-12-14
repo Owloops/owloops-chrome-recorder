@@ -4,9 +4,7 @@
 
 This repo provides tools to export Owloops Tests from [Google Chrome DevTools' Recordings](https://goo.gle/devtools-recorder) programmatically.
 
-Install [Owloops Chrome Recorder extension](https://github.com/owloops-io/owloops-recorder-extension) if you want to export the recordings directly from the Chrome DevTools' Recorder UI.
-
-[![Owloops Chrome Recorder Demo](https://img.youtube.com/vi/-RJuZrq-wOk/0.jpg)](https://youtu.be/-RJuZrq-wOk)
+Install [Owloops Chrome Recorder extension](https://github.com/Owloops/owloops-recorder-extension) if you want to export the recordings directly from the Chrome DevTools' Recorder UI.
 
 ## Prerequisites
 
@@ -81,22 +79,22 @@ Below are the step types that are currently supported:
 
 | Type                | Description                                   |
 | ------------------- | --------------------------------------------- |
-| change              | becomes **cy.get("_element_").type("text")**  |
-| click               | becomes **cy.get("_element_").click();**      |
-| click (right click) | becomes **cy.get("_element_").rightclick();** |
-| doubleClick         | becomes **cy.get("_element_").dblclick();**   |
-| hover               | becomes **cy.get("_element_").trigger();**    |
-| keyDown             | becomes **cy.type("{key}")**                  |
+| change              | become input action                           |
+| click               | becomes click action                          |
+| click (right click) | _not exported at this time_                   |
+| doubleClick         | _not exported at this time_                   |
+| hover               | _not exported at this time_                   |
+| keyDown             | becomes either enter or tab action            |
 | keyUp               | _not exported at this time_                   |
-| navigate            | becomes **cy.visit("url")**                   |
-| setViewport         | becomes **cy.viewport(width, height)**        |
-| scroll              | becomes **cy.scrollTo(${step.x}, ${step.y})** |
+| navigate            | becomes goto action                           |
+| setViewport         | _not exported at this time_                   |
+| scroll              | _not exported at this time_                   |
 
 
 If a step type is not listed above, then a warning message should be displayed in the CLI.
 
 ## License
 
-[![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/owloops-io/owloops-chrome-recorder/blob/master/LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/Owloops/owloops-chrome-recorder/blob/master/LICENSE)
 
 This project is licensed under the terms of the [MIT license](/LICENSE).
