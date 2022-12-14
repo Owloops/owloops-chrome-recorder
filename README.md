@@ -91,7 +91,7 @@ Below are the step types that are currently supported:
 | scroll              | _not exported at this time_                   |
 
 
-If a step type is not listed above, then a warning message should be displayed in the CLI.
+If a step type is not listed above, then a warning message should be displayed in the CLI. We are working on adding more steps.
 
 ## License
 
