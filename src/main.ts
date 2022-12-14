@@ -24,6 +24,10 @@ export function stripJsonTrailingCommas(content: string, options: Options = {}):
   return content.replace(/(?<=(true|false|null|["\d}\]])\s*),(?=\s*[}\]])/g, '');
 }
 
+export function removeSourceMap(content: string): string {
+  return content.slice(0, content.lastIndexOf('//# recorderSourceMap'));
+}
+
 export function parseRecordingContent(
   recordingContent: string
 ): Schema.UserFlow {
@@ -57,17 +61,14 @@ export async function owloopsStringifyChromeRecording(
   }
 
   const parsedRecording = parseRecordingContent(recording);
-  console.log(parsedRecording);
 
   const owloopsStringified = await stringifyParsedRecording(parsedRecording);
 
-  console.log(owloopsStringified);
-
   const owloopsStringifiedWithoutTrailingCommas = stripJsonTrailingCommas(owloopsStringified || "");
-  
-  console.log(owloopsStringifiedWithoutTrailingCommas);
 
-  const owloopsStringifiedWithoutTrailingCommasBeautified = JSON.stringify(JSON.parse(owloopsStringifiedWithoutTrailingCommas), null, 2);
+  const owloopsStringifiedWithoutTrailingCommasWithoutSourceMap = removeSourceMap(owloopsStringifiedWithoutTrailingCommas);
 
-  return owloopsStringifiedWithoutTrailingCommasBeautified;
+  const owloopsStringifiedWithoutTrailingCommasWithoutSourceMapBeautified = JSON.stringify(JSON.parse(owloopsStringifiedWithoutTrailingCommasWithoutSourceMap), null, 2);
+
+  return owloopsStringifiedWithoutTrailingCommasWithoutSourceMapBeautified;
 }
