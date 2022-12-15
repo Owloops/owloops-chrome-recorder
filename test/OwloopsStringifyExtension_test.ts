@@ -22,10 +22,10 @@ describe('OwloopsStringifyExtension', function () {
 
     await ext.stringifyStep(writer, step, flow);
 
-    assert.equal(writer.toString(), `{\n\"action\": \"click\",\n\"options\": {\n\"querySelector\": \"#test\",\n}\n},\n`);
+    assert.equal(writer.toString(), `{\n\"action\": \"click\",\n\"options\": {\n\"querySelector\": \"#test\",\n\"rightClick\": false,\n\"preferredSelector\": \"querySelector\",\n\"ariaSelector\": \"aria/Test\",\n\"offsetX\": 1,\n\"offsetY\": 1,\n}\n},\n`);
   });
 
-  it.skip('correctly exports Chrome Recorder doubleClick step', async function () {
+  it('correctly exports Chrome Recorder doubleClick step', async function () {
     const ext = new OwloopsStringifyExtension();
     const step = {
       type: StepType.DoubleClick as const,
@@ -39,10 +39,10 @@ describe('OwloopsStringifyExtension', function () {
 
     await ext.stringifyStep(writer, step, flow);
 
-    assert.equal(writer.toString(), 'cy.get("#test").dblclick();\n');
+    assert.equal(writer.toString(), `{\n\"action\": \"click\",\n\"options\": {\n\"querySelector\": \"#test\",\n\"doubleClick\": \"true\",\n\"preferredSelector\": \"querySelector\",\n\"ariaSelector\": \"aria/Test\",\n\"offsetX\": 1,\n\"offsetY\": 1,\n}\n},\n`);
   });
 
-  it.skip('correctly exports Chrome Recorder click step with right click', async function () {
+  it('correctly exports Chrome Recorder click step with right click', async function () {
     const ext = new OwloopsStringifyExtension();
     const step = {
       type: StepType.Click as const,
@@ -57,7 +57,7 @@ describe('OwloopsStringifyExtension', function () {
 
     await ext.stringifyStep(writer, step, flow);
 
-    assert.equal(writer.toString(), 'cy.get("#test").rightclick();\n');
+    assert.equal(writer.toString(), `{\n\"action\": \"click\",\n\"options\": {\n\"querySelector\": \"#test\",\n\"rightClick\": true,\n\"preferredSelector\": \"querySelector\",\n\"ariaSelector\": \"aria/Test\",\n\"offsetX\": 1,\n\"offsetY\": 1,\n}\n},\n`);
   });
 
   it('correctly exports Chrome Recorder navigate step', async function () {
@@ -124,7 +124,7 @@ describe('OwloopsStringifyExtension', function () {
     assert.equal(writer.toString(), 'cy.scrollTo(0, 805);\n');
   });
 
-  it.skip('correctly exports Chrome Recorder setViewport step', async function () {
+  it('correctly exports Chrome Recorder setViewport step', async function () {
     const ext = new OwloopsStringifyExtension();
     const step = {
       type: StepType.SetViewport as const,
@@ -140,7 +140,7 @@ describe('OwloopsStringifyExtension', function () {
 
     await ext.stringifyStep(writer, step, flow);
 
-    assert.equal(writer.toString(), 'cy.viewport(843, 1041);\n');
+    assert.equal(writer.toString(), `{\n\"action\": \"set-viewport\",\n\"options\": {\n\"width\": 843,\n\"height\": 1041,\n}\n},`);
   });
 
   it('correctly exports Chrome Recorder change step', async function () {
@@ -156,7 +156,7 @@ describe('OwloopsStringifyExtension', function () {
 
     await ext.stringifyStep(writer, step, flow);
 
-    assert.equal(writer.toString(), `{\n\"action\": \"input\",\n\"options\": {\n\"type\": \"input\",\n\"querySelector\": \"#name\",\n\"value\": \"jane\",\n}\n},\n`);
+    assert.equal(writer.toString(), `{\n\"action\": \"input\",\n\"options\": {\n\"querySelector\": \"#name\",\n\"preferredSelector\": \"querySelector\",\n\"type\": \"input\",\n\"value\": \"jane\",\n\"ariaSelector\": \"aria/Name\",\n}\n},\n`);
   });
 
   it('correctly handles keyDown step type', async function () {
