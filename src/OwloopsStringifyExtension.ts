@@ -1,28 +1,23 @@
-import { LineWriter, Schema, StringifyExtension, StepType } from '@puppeteer/replay';
+import {
+  LineWriter,
+  Schema,
+  StringifyExtension,
+  StepType,
+} from "@puppeteer/replay";
 
 import {
   SupportedRecorderKeysKeys,
   supportedRecorderKeys,
-} from './constants.js';
+} from "./constants.js";
 
 export class OwloopsStringifyExtension extends StringifyExtension {
   async beforeAllSteps(out: LineWriter, flow: Schema.UserFlow): Promise<void> {
     out.appendLine(`[`);
   }
 
-  // TODO: handle before/after each steps once Owloops handles empty objects as a step.
-  // async beforeEachStep(out: LineWriter, step: Schema.Step,  flow: Schema.UserFlow): Promise<void> {
-  //   out.appendLine(`{`)
-  // }
-
-  // async afterEachStep(out: LineWriter, step: Schema.Step, flow: Schema.UserFlow): Promise<void> {
-  //   out.appendLine(`}`)
-  // }
-
   async afterAllSteps(out: LineWriter): Promise<void> {
-    out.appendLine(']');
+    out.appendLine("]");
   }
-  
 
   async stringifyStep(
     out: LineWriter,
@@ -69,13 +64,29 @@ export class OwloopsStringifyExtension extends StringifyExtension {
     flow: Schema.UserFlow
   ): void {
     const cySelector = handleSelectors(step.selectors, flow);
+    const ariaSelector = ariaSelectors(step.selectors);
+    const xpathSelector = xpathSelectors(step.selectors);
+    const textSelector = textSelectors(step.selectors);
 
     if (cySelector) {
-      // TODO: handle element.select as part of input automatically in Owloops
-      formatOwlJson(out, "input", [["type", `"input"`], ["querySelector", cySelector], ["value", `"${step.value}"`]])
+      const props = [];
+      props.push(["querySelector", cySelector]);
+      props.push(["preferredSelector", `"querySelector"`]);
+      props.push(["type", `"input"`])
+      props.push(["value", `"${step.value}"`]);
+      if (ariaSelector) {
+        props.push(["ariaSelector", ariaSelector]);
+      }
+      if (xpathSelector) {
+        props.push(["xpathSelector", xpathSelector]);
+      }
+      if (textSelector) {
+        props.push(["textSelector", textSelector]);
+      }
+      formatOwlJson(out, "input", props);
     }
 
-    out.appendLine('');
+    out.appendLine("");
   }
 
   #appendClickStep(
@@ -84,17 +95,39 @@ export class OwloopsStringifyExtension extends StringifyExtension {
     flow: Schema.UserFlow
   ): void {
     const cySelector = handleSelectors(step.selectors, flow);
-    const hasRightClick = step.button && step.button === 'secondary'; // TODO: handle right click
+    const hasRightClick = step.button && step.button === "secondary";
+    const ariaSelector = ariaSelectors(step.selectors);
+    const xpathSelector = xpathSelectors(step.selectors);
+    const textSelector = textSelectors(step.selectors);
 
+    const props = [];
+    props.push(["querySelector", cySelector]);
+    props.push(["rightClick", hasRightClick || false]);
+    props.push(["preferredSelector", `"querySelector"`]);
+    if (ariaSelector) {
+      props.push(["ariaSelector", ariaSelector]);
+    }
+    if (xpathSelector) {
+      props.push(["xpathSelector", xpathSelector]);
+    }
+    if (textSelector) {
+      props.push(["textSelector", textSelector]);
+    }
+    if (step.offsetX) {
+      props.push(["offsetX", step.offsetX]);
+    }
+    if (step.offsetY) {
+      props.push(["offsetY", step.offsetY]);
+    }
     if (cySelector) {
-      formatOwlJson(out, "click", [["querySelector", cySelector]]);
+      formatOwlJson(out, "click", props);
     } else {
       console.log(
         `Warning: The click on ${step.selectors[0]} was not able to be exported to Owloops. Please adjust your selectors and try again.`
       );
     }
 
-    out.appendLine('');
+    out.appendLine("");
   }
 
   #appendDoubleClickStep(
@@ -103,16 +136,38 @@ export class OwloopsStringifyExtension extends StringifyExtension {
     flow: Schema.UserFlow
   ): void {
     const cySelector = handleSelectors(step.selectors, flow);
+    const ariaSelector = ariaSelectors(step.selectors);
+    const xpathSelector = xpathSelectors(step.selectors);
+    const textSelector = textSelectors(step.selectors);
+
+    const props = [];
+    props.push(["querySelector", cySelector]);
+    props.push(["preferredSelector", `"querySelector"`]);
+    if (ariaSelector) {
+      props.push(["ariaSelector", ariaSelector]);
+    }
+    if (xpathSelector) {
+      props.push(["xpathSelector", xpathSelector]);
+    }
+    if (textSelector) {
+      props.push(["textSelector", textSelector]);
+    }
+    if (step.offsetX) {
+      props.push(["offsetX", step.offsetX]);
+    }
+    if (step.offsetY) {
+      props.push(["offsetY", step.offsetY]);
+    }
 
     if (cySelector) {
-      // TODO: handle double click
+      formatOwlJson(out, "click", props);
     } else {
       console.log(
         `Warning: The click on ${step.selectors[0]} was not able to be exported to Owloops. Please adjust your selectors and try again.`
       );
     }
 
-    out.appendLine('');
+    out.appendLine("");
   }
 
   #appendHoverStep(
@@ -126,16 +181,16 @@ export class OwloopsStringifyExtension extends StringifyExtension {
       // TODO: handle hover step
     }
 
-    out.appendLine('');
+    out.appendLine("");
   }
 
   #appendKeyDownStep(out: LineWriter, step: Schema.KeyDownStep): void {
     const pressedKey = step.key.toLowerCase() as SupportedRecorderKeysKeys;
 
     if (pressedKey in supportedRecorderKeys) {
-      const keyValue = supportedRecorderKeys[pressedKey]; // TODO: add other key types
-      formatOwlJson(out, keyValue, [[]])
-      out.appendLine('');
+      const keyValue = supportedRecorderKeys[pressedKey];
+      formatOwlJson(out, keyValue, [[]]);
+      out.appendLine("");
     }
   }
 
@@ -148,28 +203,30 @@ export class OwloopsStringifyExtension extends StringifyExtension {
     step: Schema.ScrollStep,
     flow: Schema.UserFlow
   ): void {
-    if ('selectors' in step) {
-      // TODO: handle scrollTo Element
+    if ("selectors" in step) {
+      // TODO: handle scrollTo
     } else {
-      // TODO: handle scrollTo Coordinates
     }
-    out.appendLine('');
+    out.appendLine("");
   }
 
   #appendViewportStep(out: LineWriter, step: Schema.SetViewportStep): void {
-    // TODO: handle viewport
+    formatOwlJson(out, "set-viewport", [
+      ["width", step.width],
+      ["height", step.height],
+    ]);
   }
 }
 
-function formatOwlJson(out: LineWriter, action: string, options: string[][]) {
+function formatOwlJson(out: LineWriter, action: string, options: any[][]) {
   out.appendLine(`{`);
   out.appendLine(`"action": "${action}",`);
-  
+
   out.appendLine(`"options": {`);
   if (options[0].length > 0) {
-    options.forEach(option => {
+    options.forEach((option) => {
       out.appendLine(`"${option[0]}": ${option[1]},`);
-    })
+    });
     out.appendLine(`}`);
   } else {
     out.appendLine(`}`);
@@ -183,7 +240,7 @@ function formatAsJSLiteral(value: string) {
 
 function filterArrayByString(selectors: Schema.Selector[], value: string) {
   return selectors.filter((selector) =>
-    value === 'aria/'
+    value === "aria/"
       ? !selector[0].includes(value)
       : selector[0].includes(value)
   );
@@ -194,7 +251,7 @@ function handleSelectors(
   flow: Schema.UserFlow
 ): string | undefined {
   // Remove Aria selectors in favor of DOM selectors
-  const nonAriaSelectors = filterArrayByString(selectors, 'aria/');
+  const nonAriaSelectors = filterArrayByString(selectors, "aria/");
   let preferredSelector;
 
   // Give preference to user-specified selectors
@@ -209,6 +266,39 @@ function handleSelectors(
   } else {
     return `${formatAsJSLiteral(nonAriaSelectors[0][0])}`;
   }
+}
+
+function ariaSelectors(selectors: Schema.Selector[]): string | undefined {
+  const ariaSelectors = selectors.filter((selector) =>
+    selector[0].includes("aria/")
+  );
+  let ariaSelector;
+  if (ariaSelectors.length > 0) {
+    ariaSelector = formatAsJSLiteral(ariaSelectors[0][0]);
+  }
+  return ariaSelector;
+}
+
+function xpathSelectors(selectors: Schema.Selector[]): string | undefined {
+  const xpathSelectors = selectors.filter((selector) =>
+    selector[0].includes("xpath/")
+  );
+  let xpathSelector;
+  if (xpathSelectors.length > 0) {
+    xpathSelector = formatAsJSLiteral(xpathSelectors[0][0]);
+  }
+  return xpathSelector;
+}
+
+function textSelectors(selectors: Schema.Selector[]): string | undefined {
+  const textSelectors = selectors.filter((selector) =>
+    selector[0].includes("text/")
+  );
+  let textSelector;
+  if (textSelectors.length > 0) {
+    textSelector = formatAsJSLiteral(textSelectors[0][0]);
+  }
+  return textSelector;
 }
 
 function assertAllValidStepTypesAreHandled(step: Schema.Step): void {

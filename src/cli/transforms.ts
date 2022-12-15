@@ -28,7 +28,7 @@ async function exportFileToFolder({
   outputPath,
 }: FileToExport) {
   fs.writeFile(
-    path.join(outputFolder, `/${testName}.cy.js`),
+    path.join(outputFolder, `/${testName}.owl.json`),
     stringifiedFile as string,
     (err: any) => {
       if (!err) {
