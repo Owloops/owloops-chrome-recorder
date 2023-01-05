@@ -6,7 +6,7 @@ This repo provides tools to export Owloops Tests from [Google Chrome DevTools' R
 
 Install [Owloops Chrome Recorder extension](https://github.com/Owloops/owloops-chrome-recorder-extension) if you want to export the recordings directly from the Chrome DevTools' Recorder UI.
 
-[![Owloops Chrome Recorder Demo](https://img.youtube.com/vi/T2Wvx_yilg8/0.jpg)](https://youtu.be/T2Wvx_yilg8)
+[![Owloops Chrome Recorder Demo](https://i.imgur.com/q2puIEv.png)](https://youtu.be/T2Wvx_yilg8)
 
 ## Prerequisites
 
