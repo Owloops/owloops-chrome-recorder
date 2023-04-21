@@ -247,14 +247,14 @@ function filterArrayByString(selectors: Schema.Selector[], value: string) {
 
 function handleSelectors(
   selectors: Schema.Selector[],
-  flow: Schema.UserFlow
+  flow?: Schema.UserFlow
 ): string | undefined {
   // Remove Aria selectors in favor of DOM selectors
   const nonAriaSelectors = filterArrayByString(selectors, "aria/");
   let preferredSelector;
 
   // Give preference to user-specified selectors
-  if (flow.selectorAttribute) {
+  if (flow?.selectorAttribute) {
     preferredSelector = filterArrayByString(
       nonAriaSelectors,
       flow.selectorAttribute
