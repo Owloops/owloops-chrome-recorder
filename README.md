@@ -6,6 +6,8 @@ This repo provides tools to export Owloops Tests from [Google Chrome DevTools' R
 
 Install [Owloops Chrome Recorder extension](https://github.com/Owloops/owloops-chrome-recorder-extension) if you want to export the recordings directly from the Chrome DevTools' Recorder UI.
 
+[![Owloops Chrome Recorder Demo](https://i.imgur.com/q2puIEv.png)](https://youtu.be/T2Wvx_yilg8)
+
 ## Prerequisites
 
 In order to export JSON files from Chrome DevTools Recorder you will need to be on Chrome 101 or newer.
@@ -81,15 +83,13 @@ Below are the step types that are currently supported:
 | ------------------- | --------------------------------------------- |
 | change              | become input action                           |
 | click               | becomes click action                          |
-| click (right click) | _not exported at this time_                   |
-| doubleClick         | _not exported at this time_                   |
+| click (right click) | becomes click action                          |
+| doubleClick         | becomes click action                          |
 | hover               | _not exported at this time_                   |
 | keyDown             | becomes either enter or tab action            |
-| keyUp               | _not exported at this time_                   |
 | navigate            | becomes goto action                           |
-| setViewport         | _not exported at this time_                   |
+| setViewport         | becomes set-viewport action                   |
 | scroll              | _not exported at this time_                   |
-| waitForElement      | _not exported at this time_                   |
 
 
 If a step type is not listed above, then a warning message should be displayed in the CLI. We are working on adding more steps.
@@ -99,5 +99,7 @@ If a step type is not listed above, then a warning message should be displayed i
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/Owloops/owloops-chrome-recorder/blob/master/LICENSE)
 
 This project is licensed under the terms of the [MIT license](/LICENSE).
+
+## Credits
 
 The initial implementation was inspired by [Cypress Chrome Recorder](https://github.com/cypress-io/cypress-chrome-recorder)

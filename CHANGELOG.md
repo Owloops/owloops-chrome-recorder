@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.0.5...v1.1.0) (2022-12-15)
+
+
+### Bug Fixes
+
+* dbl click ([ef6f2bb](https://github.com/Owloops/owloops-chrome-recorder/commit/ef6f2bb15942ef7a753e7ea6647176f064805dd6))
+
+
+### Features
+
+* Added selectors fallback ([5c34a03](https://github.com/Owloops/owloops-chrome-recorder/commit/5c34a031280ddee0640b03e164876b7498144022))
+
 ## [1.0.5](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.0.4...v1.0.5) (2022-12-14)
 
 
