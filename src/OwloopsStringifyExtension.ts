@@ -53,8 +53,6 @@ export class OwloopsStringifyExtension extends StringifyExtension {
         return this.#appendKeyDownStep(out, step);
       case StepType.Hover:
         return this.#appendHoverStep(out, step, flow);
-      case StepType.KeyDown:
-        return;
     }
   }
 
@@ -73,7 +71,7 @@ export class OwloopsStringifyExtension extends StringifyExtension {
       props.push(["querySelector", cySelector]);
       props.push(["preferredSelector", `"querySelector"`]);
       props.push(["type", `"input"`])
-      props.push(["value", `"${step.value}"`]);
+      props.push(["value", `${formatAsJSLiteral(step.value)}`]);
       if (ariaSelector) {
         props.push(["ariaSelector", ariaSelector]);
       }
@@ -196,7 +194,7 @@ export class OwloopsStringifyExtension extends StringifyExtension {
   }
 
   #appendNavigationStep(out: LineWriter, step: Schema.NavigateStep): void {
-    formatOwlJson(out, "goto", [["url", `"${step.url}"`]]);
+    formatOwlJson(out, "goto", [["url", `${formatAsJSLiteral(step.url)}`]]);
   }
 
   #appendScrollStep(
