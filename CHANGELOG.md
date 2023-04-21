@@ -1,3 +1,12 @@
+## [1.1.1](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.1.0...v1.1.1) (2023-04-21)
+
+
+### Bug Fixes
+
+* added tests for the fixed bugs ([b3d35ae](https://github.com/Owloops/owloops-chrome-recorder/commit/b3d35ae7b02a86358f803e98d4757ca39003a79e))
+* json inputs, empty keydown events ([b2cfffe](https://github.com/Owloops/owloops-chrome-recorder/commit/b2cfffe7ee0f4f4dffdd23fa7415938d5e28e985))
+* updated release workflow ([6c166d4](https://github.com/Owloops/owloops-chrome-recorder/commit/6c166d46757f6877be6ec8c1e9a6a2eacecae1d9))
+
 # [1.1.0](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.0.5...v1.1.0) (2022-12-15)
 
 
