@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.1.1...v1.1.2) (2023-12-15)
+
+
+### Bug Fixes
+
+* added waitForElement step and pierceSelector ([f13374e](https://github.com/Owloops/owloops-chrome-recorder/commit/f13374e41083d1c477e38e2fa7622c4a3a8c8b3f))
+
 ## [1.1.1](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.1.0...v1.1.1) (2023-04-21)
 
 
