@@ -3,6 +3,7 @@ import {
   Schema,
   StringifyExtension,
   StepType,
+  WaitForElementStep,
 } from "@puppeteer/replay";
 
 import {
@@ -53,6 +54,8 @@ export class OwloopsStringifyExtension extends StringifyExtension {
         return this.#appendKeyDownStep(out, step);
       case StepType.Hover:
         return this.#appendHoverStep(out, step, flow);
+      case StepType.WaitForElement:
+        return this.#appendWaitForElementStep(out, step, flow);
     }
   }
 
@@ -65,6 +68,7 @@ export class OwloopsStringifyExtension extends StringifyExtension {
     const ariaSelector = ariaSelectors(step.selectors);
     const xpathSelector = xpathSelectors(step.selectors);
     const textSelector = textSelectors(step.selectors);
+    const pierceSelector = pierceSelectors(step.selectors);
 
     if (cySelector) {
       const props = [];
@@ -80,6 +84,9 @@ export class OwloopsStringifyExtension extends StringifyExtension {
       }
       if (textSelector) {
         props.push(["textSelector", textSelector]);
+      }
+      if (pierceSelector) {
+        props.push(["pierceSelector", pierceSelector]);
       }
       formatOwlJson(out, "input", props);
     }
@@ -97,6 +104,7 @@ export class OwloopsStringifyExtension extends StringifyExtension {
     const ariaSelector = ariaSelectors(step.selectors);
     const xpathSelector = xpathSelectors(step.selectors);
     const textSelector = textSelectors(step.selectors);
+    const pierceSelector = pierceSelectors(step.selectors);
 
     const props = [];
     props.push(["querySelector", cySelector]);
@@ -110,6 +118,9 @@ export class OwloopsStringifyExtension extends StringifyExtension {
     }
     if (textSelector) {
       props.push(["textSelector", textSelector]);
+    }
+    if (pierceSelector) {
+      props.push(["pierceSelector", pierceSelector]);
     }
     if (step.offsetX) {
       props.push(["offsetX", step.offsetX]);
@@ -137,6 +148,7 @@ export class OwloopsStringifyExtension extends StringifyExtension {
     const ariaSelector = ariaSelectors(step.selectors);
     const xpathSelector = xpathSelectors(step.selectors);
     const textSelector = textSelectors(step.selectors);
+    const pierceSelector = pierceSelectors(step.selectors);
 
     const props = [];
     props.push(["querySelector", cySelector]);
@@ -150,6 +162,9 @@ export class OwloopsStringifyExtension extends StringifyExtension {
     }
     if (textSelector) {
       props.push(["textSelector", textSelector]);
+    }
+    if (pierceSelector) {
+      props.push(["pierceSelector", pierceSelector]);
     }
     if (step.offsetX) {
       props.push(["offsetX", step.offsetX]);
@@ -181,6 +196,27 @@ export class OwloopsStringifyExtension extends StringifyExtension {
     }
 
     out.appendLine("");
+  }
+
+  #appendWaitForElementStep(out: LineWriter, step: WaitForElementStep, flow: Schema.UserFlow): void {
+    const cySelector = handleSelectorsForWaitForElementStep(step.selectors as any, flow);
+    const props = [];
+    props.push(["for", `"querySelector"`]);
+    props.push(["querySelector", cySelector]);
+    if (cySelector) {
+      formatOwlJson(out, "wait", props);
+    } else {
+      console.log(
+        `Warning: The click on ${step.selectors[0]} was not able to be exported to Owloops. Please adjust your selectors and try again.`
+      );
+    }
+
+    out.appendLine("");
+    // out.appendLine(
+    //   `await waitForElement(${formatJSONAsJS(step, out.getIndent())}, ${
+    //     step.frame ? 'frame' : 'targetPage'
+    //   }, timeout);`
+    // );
   }
 
   #appendKeyDownStep(out: LineWriter, step: Schema.KeyDownStep): void {
@@ -245,6 +281,14 @@ function filterArrayByString(selectors: Schema.Selector[], value: string) {
   );
 }
 
+function filterArrayByStringForWaitForElementStep(selectors: string[], value: string) {
+  return selectors.filter((selector) =>
+    value === "aria/"
+      ? !selector.includes(value)
+      : selector.includes(value)
+  );
+}
+
 function handleSelectors(
   selectors: Schema.Selector[],
   flow?: Schema.UserFlow
@@ -264,6 +308,30 @@ function handleSelectors(
     return `${formatAsJSLiteral(preferredSelector[0][0])}`;
   } else {
     return `${formatAsJSLiteral(nonAriaSelectors[0][0])}`;
+  }
+}
+
+function handleSelectorsForWaitForElementStep(
+  selectors: string[],
+  flow?: Schema.UserFlow
+): string | undefined {
+  // Remove Aria selectors in favor of DOM selectors
+  const nonAriaSelectors = filterArrayByStringForWaitForElementStep(selectors, "aria/");
+
+  let preferredSelector;
+
+  // Give preference to user-specified selectors
+  if (flow?.selectorAttribute) {
+    preferredSelector = filterArrayByStringForWaitForElementStep(
+      nonAriaSelectors,
+      flow.selectorAttribute
+    );
+  }
+
+  if (preferredSelector && preferredSelector.length > 0) {
+    return formatAsJSLiteral(preferredSelector[0]);
+  } else {
+    return formatAsJSLiteral(nonAriaSelectors[0]);
   }
 }
 
@@ -298,6 +366,17 @@ function textSelectors(selectors: Schema.Selector[]): string | undefined {
     textSelector = formatAsJSLiteral(textSelectors[0][0]);
   }
   return textSelector;
+}
+
+function pierceSelectors(selectors: Schema.Selector[]): string | undefined {
+  const pierceSelectors = selectors.filter((selector) =>
+    selector[0].includes("pierce/")
+  );
+  let pierceSelector;
+  if (pierceSelectors.length > 0) {
+    pierceSelector = formatAsJSLiteral(pierceSelectors[0][0]);
+  }
+  return pierceSelector;
 }
 
 function assertAllValidStepTypesAreHandled(step: Schema.Step): void {

@@ -145,6 +145,25 @@ describe("OwloopsStringifyExtension", function () {
     );
   });
 
+  it("correctly exports Chrome Recorder waitForElement step", async function () {
+    const step = {
+      type: StepType.WaitForElement as const,
+      selectors: [
+        'li:nth-of-type(1) div.ikg2IXiCD14iVX7AdZo1 span',
+        'xpath///*[@data-testid="result-title-a"]/span',
+        'pierce/li:nth-of-type(1) div.ikg2IXiCD14iVX7AdZo1 span'
+      ],
+    };
+    const result = await stringifyStep(step, {
+      extension,
+    });
+
+    assert.equal(
+      result.toString(),
+      `{\n\"action\": \"wait\",\n\"options\": {\n\"for\": "querySelector",\n\"querySelector\": "li:nth-of-type(1) div.ikg2IXiCD14iVX7AdZo1 span",\n}\n},\n\n`
+    );
+  });
+
   it("correctly exports Chrome Recorder change step", async function () {
     const step = {
       type: StepType.Change as const,
