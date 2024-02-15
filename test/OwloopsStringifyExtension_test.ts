@@ -41,7 +41,7 @@ describe("OwloopsStringifyExtension", function () {
 
     assert.equal(
       result.toString(),
-      `{\n\"action\": \"click\",\n\"options\": {\n\"querySelector\": \"#test\",\n\"doubleClick\": \"true\",\n\"preferredSelector\": \"querySelector\",\n\"ariaSelector\": \"aria/Test\",\n\"offsetX\": 1,\n\"offsetY\": 1,\n}\n},\n\n`
+      `{\n\"action\": \"click\",\n\"options\": {\n\"querySelector\": \"#test\",\n\"doubleClick\": true,\n\"preferredSelector\": \"querySelector\",\n\"ariaSelector\": \"aria/Test\",\n\"offsetX\": 1,\n\"offsetY\": 1,\n}\n},\n\n`
     );
   });
 

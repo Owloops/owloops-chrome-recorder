@@ -152,7 +152,7 @@ export class OwloopsStringifyExtension extends StringifyExtension {
 
     const props = [];
     props.push(["querySelector", cySelector]);
-    props.push(["doubleClick", `"true"`]);
+    props.push(["doubleClick", true]);
     props.push(["preferredSelector", `"querySelector"`]);
     if (ariaSelector) {
       props.push(["ariaSelector", ariaSelector]);
