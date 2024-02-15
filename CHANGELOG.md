@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.1.3...v1.1.4) (2024-02-15)
+
+
+### Bug Fixes
+
+* readme md lint ([efb686e](https://github.com/Owloops/owloops-chrome-recorder/commit/efb686e1ba252fe4673d49c1efb053648a174ba3))
+
 ## [1.1.3](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.1.2...v1.1.3) (2024-02-15)
 
 
