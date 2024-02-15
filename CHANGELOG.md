@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.1.2...v1.1.3) (2024-02-15)
+
+
+### Bug Fixes
+
+* double click boolean ([60bcf4a](https://github.com/Owloops/owloops-chrome-recorder/commit/60bcf4ac9a4d7003283e3c080ae33aab7a1458a7))
+
 ## [1.1.2](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.1.1...v1.1.2) (2023-12-15)
 
 
