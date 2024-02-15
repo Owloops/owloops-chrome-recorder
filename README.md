@@ -17,7 +17,7 @@ In order to export JSON files from Chrome DevTools Recorder you will need to be 
 ## Installation
 
 ```sh
-$ npm install -g @owloops/chrome-recorder
+npm install -g @owloops/chrome-recorder
 ```
 
 ## Usage
@@ -27,7 +27,7 @@ $ npm install -g @owloops/chrome-recorder
 To use the interactive CLI, run:
 
 ```sh
-$ npx @owloops/chrome-recorder
+npx @owloops/chrome-recorder
 ```
 
 The CLI will prompt you to enter the path of the directory or file that you would like to modify as well as a path to write the generated Owloops test to.
@@ -35,13 +35,13 @@ The CLI will prompt you to enter the path of the directory or file that you woul
 If you prefer to enter paths via the CLI, you can run the following command to export individual recordings:
 
 ```sh
-$ npx @owloops/chrome-recorder <relative path to target test file>
+npx @owloops/chrome-recorder <relative path to target test file>
 ```
 
 or for folders containing multiple recordings:
 
 ```sh
-$ npx @owloops/chrome-recorder <relative path to target test folder>/*.json
+npx @owloops/chrome-recorder <relative path to target test folder>/*.json
 ```
 
 By default the output will be written to `owloops/integration` with a fallback to `owloops/e2e`. If you do not have those folders, create them manually or install Owloops by running `yarn add -D owloops` or `npm install --save-dev owloops` in your project.
@@ -49,7 +49,7 @@ By default the output will be written to `owloops/integration` with a fallback t
 If you prefer a different output directory, specify that via CLI:
 
 ```sh
-$ npx @owloops/chrome-recorder <relative path to target test folder>/*.json --output=folder-name
+npx @owloops/chrome-recorder <relative path to target test folder>/*.json --output=folder-name
 ```
 
 or via the interactive CLI prompts.
@@ -90,7 +90,6 @@ Below are the step types that are currently supported:
 | navigate            | becomes goto action                           |
 | setViewport         | becomes set-viewport action                   |
 | scroll              | _not exported at this time_                   |
-
 
 If a step type is not listed above, then a warning message should be displayed in the CLI. We are working on adding more steps.
 
