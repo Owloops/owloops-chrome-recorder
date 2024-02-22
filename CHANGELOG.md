@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.1.4...v1.1.5) (2024-02-22)
+
+
+### Bug Fixes
+
+* repo name ([9f14559](https://github.com/Owloops/owloops-chrome-recorder/commit/9f1455911d3138f19c984156b1aa4118c8c30c91))
+
 ## [1.1.4](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.1.3...v1.1.4) (2024-02-15)
 
 
