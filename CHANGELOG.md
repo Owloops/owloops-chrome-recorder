@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.1.5...v1.1.6) (2024-03-19)
+
+
+### Bug Fixes
+
+* wait selectors ([ada3555](https://github.com/Owloops/owloops-chrome-recorder/commit/ada355523f4a119624f414bfe4721d119bca8397))
+
 ## [1.1.5](https://github.com/Owloops/owloops-chrome-recorder/compare/v1.1.4...v1.1.5) (2024-02-22)
 
 
