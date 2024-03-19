@@ -281,14 +281,6 @@ function filterArrayByString(selectors: Schema.Selector[], value: string) {
   );
 }
 
-function filterArrayByStringForWaitForElementStep(selectors: string[], value: string) {
-  return selectors.filter((selector) =>
-    value === "aria/"
-      ? !selector.includes(value)
-      : selector.includes(value)
-  );
-}
-
 function handleSelectors(
   selectors: Schema.Selector[],
   flow?: Schema.UserFlow
@@ -312,27 +304,16 @@ function handleSelectors(
 }
 
 function handleSelectorsForWaitForElementStep(
-  selectors: string[],
+  selectors: Array<string[] | string>,
   flow?: Schema.UserFlow
 ): string | undefined {
-  // Remove Aria selectors in favor of DOM selectors
-  const nonAriaSelectors = filterArrayByStringForWaitForElementStep(selectors, "aria/");
+  const allSelectors = selectors.flat().filter(Boolean);
 
-  let preferredSelector;
+  const chosenSelector = allSelectors.find(selector => 
+    selector.startsWith(flow?.selectorAttribute ?? '')
+  ) ?? allSelectors[0];
 
-  // Give preference to user-specified selectors
-  if (flow?.selectorAttribute) {
-    preferredSelector = filterArrayByStringForWaitForElementStep(
-      nonAriaSelectors,
-      flow.selectorAttribute
-    );
-  }
-
-  if (preferredSelector && preferredSelector.length > 0) {
-    return formatAsJSLiteral(preferredSelector[0]);
-  } else {
-    return formatAsJSLiteral(nonAriaSelectors[0]);
-  }
+  return formatAsJSLiteral(chosenSelector);
 }
 
 function ariaSelectors(selectors: Schema.Selector[]): string | undefined {
